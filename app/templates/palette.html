@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+
+	<p class="title">Create color palettes from images of your choice</p>
+	<div class="palette-data">
+		<div class="img" style="background-image: url('{{image}}')"></div>
+
+		<div class="palette">
+			<div class="colors">
+				{% for i in range(palette|length) %}
+					<div class="color" data-color='{{palette[i]}}'></div>
+				{% endfor %}
+			</div>
+			<div class="controls">
+				<button class="upload">Generate new palette</button>
+				<button class="export">Export palette</button>
+			</div>
+		</div>
+
+		<div class="color-data">
+			<div class="color">
+				<p>Select color from palette to appear here</p>
+			</div>
+			<div class="data">
+				<div class="palette">
+					<div class="brightness">
+						
+					</div>
+				</div>
+
+				<div class="values">
+					<p class="hex">Hex : <span></span> <i class="fa fa-copy"></i></p>
+					<p class="rgb">RGB : <span></span> <i class="fa fa-copy"></i></p>
+					<p class="hsl">HSL : <span></span> <i class="fa fa-copy"></i></p>
+					<p class="cmyk">CMYK : <span></span> <i class="fa fa-copy"></i></p>
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<div class="file-uploader">
+		<i class="fa fa-times"></i>
+
+		<div class="preview-area">
+			<img src="" alt="">
+		</div>
+
+		<form action="{{url_for('generate_palette')}}" method="post" enctype="multipart/form-data" >
+			<input type="file" type="image" name="image" accept=".jpg, .jpeg, .png" required> 
+			<label for="image">Choose an image </label>
+			<input type="text" name="b64image" style="display: none;">
+			<button>Generate palette</button>
+		</form>
+
+	</div>
+
+	<div class="file-saver">
+		<i class="fa fa-times"></i>
+		<p>Save palette as</p>
+		<form>
+			
+			<div>
+				<span class="hex selected">HEX</span>
+				<span class="rgb">RGB</span>
+				<span class="hsl">HSL</span>
+				<span class="cmyk">CMYK</span>
+			</div>
+			<div class="f-name">
+				<input type="text" name="filename" value="palette" />
+				<button>Save <i class="fa fa-save"></i></button>
+			</div>
+		</form>
+
+	</div>
+
+	<script type="text/javascript" src="{{ url_for('static', filename='js/image-uploader.js') }}"></script>
+	<script type="text/javascript" src="{{ url_for('static', filename='js/palette.js') }}"></script>
+
+{% endblock %}

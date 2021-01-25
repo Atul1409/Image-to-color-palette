@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+	<p class="title">Image to Color Palette generator</p>
+
+	<p class="text"> Find design inspiration with color palettes extracted from your favourite images.Just simply upload an image and this tool will create a color palette based on the dominant colors in your image using the <a href="https://pypi.org/project/Pillow/">Pillow Library</a>. </p>		
+
+
+	<div class="upload--controls">
+		<button id="upload" onclick="javascript:document.querySelector('.file-uploader').style.display = 'flex'"> <i class="fa fa-upload"></i> Upload image</button>
+	</div>
+
+	<div class="file-uploader">
+		<i class="fa fa-times"></i>
+
+		<div class="preview-area">
+			<img src="" alt="">
+		</div>
+
+		<form action="{{url_for('generate_palette')}}" method="post" enctype="multipart/form-data" >
+			<input type="file" type="image" name="image" accept=".jpg, .jpeg, .png" required> 
+			<label for="image">Choose an image </label>
+			<input type="text" name="b64image" style="display: none;">
+			<button>Generate palette</button>
+		</form>
+
+	</div>
+
+
+
+	<script type="text/javascript" src="{{ url_for('static', filename='js/image-uploader.js') }}"></script>
+
+
+{% endblock %}
